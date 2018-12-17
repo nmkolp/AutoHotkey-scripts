@@ -26,8 +26,7 @@ Sleep 10000
 Send {F6}
 Sleep 500
 
-; Run mkdir "C:\Users\example\Downloads\NewDirectory"
-; Sleep 500
+; RunWait mkdir "C:\Users\example\Downloads\NewDirectory"
 
 ; link := "https://example.com/"
 ; filepath := "C:\Users\example\Downloads\NewDirectory\FileName"
