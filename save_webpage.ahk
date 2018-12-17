@@ -4,7 +4,7 @@
 #NoEnv
 SendMode Input
 
-inputWaitTime := 500
+global inputWaitTime := 500
 
 Save(link, filepath)
 {
