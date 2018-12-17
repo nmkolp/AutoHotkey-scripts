@@ -4,27 +4,30 @@
 #NoEnv
 SendMode Input
 
+inputWaitTime := 500
+
 Save(link, filepath)
 {
     Send {F6}
-    Sleep 500
+    Sleep %inputWaitTime%
     SendInput %link%
-    Sleep 500
+    Sleep %inputWaitTime%
     Send {Enter}
     ; Wait time for page loading
     Sleep 10000
     Send ^s
-    Sleep 500
+    Sleep %inputWaitTime%
     SendInput %filepath%
-    Sleep 500
+    Sleep %inputWaitTime%
     Send {Enter}
-    Sleep 500
+    Sleep %inputWaitTime%
 }
 
 Run firefox.exe
+; Wait time for browser opening
 Sleep 10000
 Send {F6}
-Sleep 500
+Sleep %inputWaitTime%
 
 ; RunWait mkdir "C:\Users\example\Downloads\NewDirectory"
 
