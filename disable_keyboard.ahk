@@ -1,4 +1,4 @@
-﻿; Block all keyboard keys except for Control and Pause
+; Block all keyboard keys except for Control and Pause
 ; Ctrl + Pause toggles script suspend
 
 #NoEnv
@@ -13,12 +13,9 @@ Nop() {
 w := "*"
 
 Loop, 511 {
-  ; MouseKeys
-  ; LControl, RControl
-  ; CtrlBreak, Pause
-  If (A_Index == 0x000
-  OR A_Index == 0x01D OR A_Index == 0x11D
-  OR A_Index == 0x146 OR A_Index == 0x045)
+  If (A_Index == 0x000 ; MouseKeys
+  OR A_Index == 0x01D OR A_Index == 0x11D ; LControl, RControl
+  OR A_Index == 0x146 OR A_Index == 0x045) ; CtrlBreak, Pause
     Continue
   i := % Format("{1}{2:X}", "SC", A_Index)
   HotKey, %i%, Nop
