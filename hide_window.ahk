@@ -1,8 +1,18 @@
 ; Hides specified window
 ; Ctrl + Alt + s toggles window hide/show
+; Ctrl + Alt + e exits script
 
 #NoEnv
 SendMode Input
+
+OnExit("ExitF")
+
+ExitF()
+{
+    if not WinExist("ahk_exe example.exe") {
+        WinShow, ahk_exe example.exe
+    }
+}
 
 ^!s::
     IfWinExist, ahk_exe example.exe
@@ -15,8 +25,4 @@ SendMode Input
     }
     Return
 
-^!e::
-    if not WinExist("ahk_exe example.exe") {
-        WinShow, ahk_exe example.exe
-    }
-    ExitApp
+^!e::ExitApp
