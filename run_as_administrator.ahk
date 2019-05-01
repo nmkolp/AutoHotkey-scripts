@@ -1,4 +1,6 @@
-﻿#NoEnv
+; Run current script as Administrator
+
+#NoEnv
 SendMode Input
 
 full_command_line := DllCall("GetCommandLine", "str")
