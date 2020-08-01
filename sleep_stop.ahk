@@ -3,17 +3,17 @@
 #NoEnv
 SendMode Input
 
-SleepS(seconds) {
-    global StopSleep := false
+SleepSeconds(seconds) {
+    global stopSleep := false
     Loop, %seconds% {
-        if StopSleep {
+        if stopSleep {
             Break
         }
         Sleep, 1000
     }
 }
 
-SleepS(60)
+SleepSeconds(60)
 ; some code after sleep
 
-^!n::StopSleep = true
+^!n::stopSleep = true
