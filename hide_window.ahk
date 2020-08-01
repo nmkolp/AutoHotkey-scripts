@@ -7,20 +7,16 @@ SendMode Input
 
 OnExit("ExitF")
 
-ExitF()
-{
-    if not WinExist("ahk_exe example.exe") {
+ExitF() {
+    if NOT WinExist("ahk_exe example.exe") {
         WinShow, ahk_exe example.exe
     }
 }
 
 ^!s::
-    IfWinExist, ahk_exe example.exe
-    {
+    if WinExist("ahk_exe example.exe") {
         WinHide
-    }
-    Else
-    {
+    } else {
         WinShow, ahk_exe example.exe
     }
     Return
