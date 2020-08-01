@@ -40,7 +40,7 @@ MIDDLE_CLICK := 4
 ^!s::toBreak := true
 
 ^!k::
-    if simpleHotkeysEnabled {
+    if (simpleHotkeysEnabled) {
         simpleHotkeysEnabled := false
     } else {
         simpleHotkeysEnabled := true
@@ -48,7 +48,7 @@ MIDDLE_CLICK := 4
     Return
 
 ^!c::
-    if resendClicks {
+    if (resendClicks) {
         resendClicks := false
     } else {
         resendClicks := true
@@ -63,21 +63,21 @@ MIDDLE_CLICK := 4
     Return
 
 ^!m::
-    if recording {
+    if (recording) {
         MouseGetPos, xpos, ypos
         moves.Push(MOVE, xpos, ypos)
     }
     Return
 
-AppendAction(Type, Amount) {
+AppendAction(type, amount) {
     global moves
     global recording
     
-    if recording {
-        if (moves.Length() >= 3 AND moves[moves.Length() - 2] = Type) {
-            moves[moves.Length() - 1] += Amount
+    if (recording) {
+        if (moves.Length() >= 3 AND moves[moves.Length() - 2] = type) {
+            moves[moves.Length() - 1] += amount
         } else {
-            moves.Push(Type, Amount, 0)
+            moves.Push(type, amount, 0)
         }
     }
 }
@@ -200,13 +200,13 @@ $^+MButton UP::
     Return
 
 ~w::
-    if simpleHotkeysEnabled {
+    if (simpleHotkeysEnabled) {
         AppendAction(WAIT, 1)
     }
     Return
 
 ~+w::
-    if simpleHotkeysEnabled {
+    if (simpleHotkeysEnabled) {
         AppendAction(WAIT, 10)
     }
     Return
@@ -224,13 +224,13 @@ $^+MButton UP::
     Return
 
 ^!+u::
-    if recording {
+    if (recording) {
         moves := []
     }
     Return
 
 ^!r::
-    if NOT playing {
+    if (NOT playing) {
         recording := true
     }
     Return
@@ -238,7 +238,7 @@ $^+MButton UP::
 ^!+r::recording := false
 
 ^!b::
-    if recording {
+    if (recording) {
         i := moves.Length() - 3
         While (i > 3) {
             moves.Push(moves[i - 2], moves[i - 1], moves[i])
@@ -248,7 +248,7 @@ $^+MButton UP::
     Return
 
 ^!+b::
-    if recording {
+    if (recording) {
         swap := false
         i := moves.Length() - 3
         While (i > 3) {
@@ -258,7 +258,7 @@ $^+MButton UP::
                 Continue
             }
             moves.Push(moves[i - 2], moves[i - 1], moves[i])
-            if swap {
+            if (swap) {
                 moves.Push(moves[i + 1], moves[i + 2], moves[i + 3])
                 swap := false
             }
@@ -283,44 +283,44 @@ Play() {
         }
         if (moves[i] = MOVE) {
             MouseMove, moves[++i], moves[++i]
-            Sleep, 50
+            Sleep 50
         } else if (moves[i] = RIGHT_CLICK) {
             count := moves[++i]
-            Loop, %count% {
+            Loop %count% {
                 if toBreak {
                     Break
                 }
                 Click, Right
-                Sleep, 20
+                Sleep 20
             }
             i++
         } else if (moves[i] = LEFT_CLICK) {
             count := moves[++i]
-            Loop, %count% {
+            Loop %count% {
                 if toBreak {
                     Break
                 }
                 Click
-                Sleep, 20
+                Sleep 20
             }
             i++
         } else if (moves[i] = MIDDLE_CLICK) {
             count := moves[++i]
-            Loop, %count% {
+            Loop %count% {
                 if toBreak {
                     Break
                 }
                 Click, Middle
-                Sleep, 20
+                Sleep 20
             }
             i++
         } else if (moves[i] = WAIT) {
             seconds := moves[++i]
-            Loop, %seconds% {
+            Loop %seconds% {
                 if toBreak {
                     Break
                 }
-                Sleep, 1000
+                Sleep 1000
             }
             i++
         }
@@ -329,7 +329,7 @@ Play() {
 }
 
 ^!p::
-    if playing {
+    if (playing) {
         Return
     }
     recording := false
@@ -340,7 +340,7 @@ Play() {
     Return
 
 ^!+p::
-    if playing {
+    if (playing) {
         Return
     }
     recording := false
@@ -356,7 +356,7 @@ Play() {
     Return
 
 ^!d::
-    if playing {
+    if (playing) {
         Return
     }
     message := ""
@@ -379,7 +379,7 @@ Play() {
         }
         i++
     }
-    MsgBox, %message%
+    MsgBox %message%
     Return
 
 ^!e::ExitApp
