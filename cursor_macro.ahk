@@ -24,18 +24,18 @@
 #NoEnv
 SendMode Input
 
-moves := []
-recording := false
-playing := false
-toBreak := false
-resendClicks := true
-simpleHotkeysEnabled := true
+global moves := []
+global recording := false
+global playing := false
+global toBreak := false
+global resendClicks := true
+global simpleHotkeysEnabled := true
 
-MOVE := 0
-WAIT := 1
-RIGHT_CLICK := 2
-LEFT_CLICK := 3
-MIDDLE_CLICK := 4
+global MOVE := 0
+global WAIT := 1
+global RIGHT_CLICK := 2
+global LEFT_CLICK := 3
+global MIDDLE_CLICK := 4
 
 ^!s::toBreak := true
 
@@ -45,7 +45,7 @@ MIDDLE_CLICK := 4
     } else {
         simpleHotkeysEnabled := true
     }
-    Return
+    return
 
 ^!c::
     if (resendClicks) {
@@ -53,26 +53,23 @@ MIDDLE_CLICK := 4
     } else {
         resendClicks := true
     }
-    Return
+    return
 
 ~m::
     if (recording AND simpleHotkeysEnabled) {
         MouseGetPos, xpos, ypos
         moves.Push(MOVE, xpos, ypos)
     }
-    Return
+    return
 
 ^!m::
     if (recording) {
         MouseGetPos, xpos, ypos
         moves.Push(MOVE, xpos, ypos)
     }
-    Return
+    return
 
 AppendAction(type, amount) {
-    global moves
-    global recording
-    
     if (recording) {
         if (moves.Length() >= 3 AND moves[moves.Length() - 2] = type) {
             moves[moves.Length() - 1] += amount
@@ -86,130 +83,130 @@ $RButton::
     if (resendClicks OR NOT recording) {
         Send {RButton Down}
     }
-    Return
+    return
 
 $RButton UP::
     AppendAction(RIGHT_CLICK, 1)
     if (resendClicks OR NOT recording) {
         Send {RButton Up}
     }
-    Return
+    return
 
 $^RButton::
     if (resendClicks OR NOT recording) {
         Send {Ctrl}{RButton Down}
     }
-    Return
+    return
 
 $^RButton UP::
     AppendAction(RIGHT_CLICK, 10)
     if (resendClicks OR NOT recording) {
         Send {Ctrl}{RButton Up}
     }
-    Return
+    return
 
 $^+RButton::
     if (resendClicks OR NOT recording) {
         Send {Ctrl}{Shift}{RButton Down}
     }
-    Return
+    return
 
 $^+RButton UP::
     AppendAction(RIGHT_CLICK, 100)
     if (resendClicks OR NOT recording) {
         Send {Ctrl}{Shift}{RButton Up}
     }
-    Return
+    return
 
 $LButton::
     if (resendClicks OR NOT recording) {
         Send {LButton Down}
     }
-    Return
+    return
 
 $LButton UP::
     AppendAction(LEFT_CLICK, 1)
     if (resendClicks OR NOT recording) {
         Send {LButton Up}
     }
-    Return
+    return
 
 $^LButton::
     if (resendClicks OR NOT recording) {
         Send {Ctrl}{LButton Down}
     }
-    Return
+    return
 
 $^LButton UP::
     AppendAction(LEFT_CLICK, 10)
     if (resendClicks OR NOT recording) {
         Send {Ctrl}{LButton Up}
     }
-    Return
+    return
 
 $^+LButton::
     if (resendClicks OR NOT recording) {
         Send {Ctrl}{Shift}{LButton Down}
     }
-    Return
+    return
 
 $^+LButton UP::
     AppendAction(LEFT_CLICK, 100)
     if (resendClicks OR NOT recording) {
         Send {Ctrl}{Shift}{LButton Up}
     }
-    Return
+    return
 
 $MButton::
     if (resendClicks OR NOT recording) {
         Send {MButton Down}
     }
-    Return
+    return
 
 $MButton UP::
     AppendAction(MIDDLE_CLICK, 1)
     if (resendClicks OR NOT recording) {
         Send {MButton Up}
     }
-    Return
+    return
 
 $^MButton::
     if (resendClicks OR NOT recording) {
         Send {Ctrl}{MButton Down}
     }
-    Return
+    return
 
 $^MButton UP::
     AppendAction(MIDDLE_CLICK, 10)
     if (resendClicks OR NOT recording) {
         Send {Ctrl}{MButton Up}
     }
-    Return
+    return
 
 $^+MButton::
     if (resendClicks OR NOT recording) {
         Send {Ctrl}{Shift}{MButton Down}
     }
-    Return
+    return
 
 $^+MButton UP::
     AppendAction(MIDDLE_CLICK, 100)
     if (resendClicks OR NOT recording) {
         Send {Ctrl}{Shift}{MButton Up}
     }
-    Return
+    return
 
 ~w::
     if (simpleHotkeysEnabled) {
         AppendAction(WAIT, 1)
     }
-    Return
+    return
 
 ~+w::
     if (simpleHotkeysEnabled) {
         AppendAction(WAIT, 10)
     }
-    Return
+    return
 
 ^!w::AppendAction(WAIT, 1)
 
@@ -221,19 +218,19 @@ $^+MButton UP::
         moves.Pop()
         moves.Pop()
     }
-    Return
+    return
 
 ^!+u::
     if (recording) {
         moves := []
     }
-    Return
+    return
 
 ^!r::
     if (NOT playing) {
         recording := true
     }
-    Return
+    return
 
 ^!+r::recording := false
 
@@ -245,7 +242,7 @@ $^+MButton UP::
             i -= 3
         }
     }
-    Return
+    return
 
 ^!+b::
     if (recording) {
@@ -255,7 +252,7 @@ $^+MButton UP::
             if (moves[i - 2] > WAIT AND moves[i - 5] = MOVE) {
                 swap := true
                 i -= 3
-                Continue
+                continue
             }
             moves.Push(moves[i - 2], moves[i - 1], moves[i])
             if (swap) {
@@ -265,21 +262,13 @@ $^+MButton UP::
             i -= 3
         }
     }
-    Return
+    return
 
 Play() {
-    global moves
-    global toBreak
-    global MOVE
-    global WAIT
-    global RIGHT_CLICK
-    global LEFT_CLICK
-    global MIDDLE_CLICK
-    
     i := 1
     While (i <= moves.Length()) {
         if (toBreak) {
-            Break
+            break
         }
         if (moves[i] = MOVE) {
             MouseMove, moves[++i], moves[++i]
@@ -288,7 +277,7 @@ Play() {
             count := moves[++i]
             Loop %count% {
                 if (toBreak) {
-                    Break
+                    break
                 }
                 Click, Right
                 Sleep 20
@@ -298,7 +287,7 @@ Play() {
             count := moves[++i]
             Loop %count% {
                 if (toBreak) {
-                    Break
+                    break
                 }
                 Click
                 Sleep 20
@@ -308,7 +297,7 @@ Play() {
             count := moves[++i]
             Loop %count% {
                 if (toBreak) {
-                    Break
+                    break
                 }
                 Click, Middle
                 Sleep 20
@@ -318,7 +307,7 @@ Play() {
             seconds := moves[++i]
             Loop %seconds% {
                 if (toBreak) {
-                    Break
+                    break
                 }
                 Sleep 1000
             }
@@ -330,18 +319,18 @@ Play() {
 
 ^!p::
     if (playing) {
-        Return
+        return
     }
     recording := false
     playing := true
     toBreak := false
     Play()
     playing := false
-    Return
+    return
 
 ^!+p::
     if (playing) {
-        Return
+        return
     }
     recording := false
     playing := true
@@ -349,15 +338,15 @@ Play() {
     Loop {
         Play()
         if (toBreak) {
-            Break
+            break
         }
     }
     playing := false
-    Return
+    return
 
 ^!d::
     if (playing) {
-        Return
+        return
     }
     message := ""
     i := 1
@@ -380,6 +369,6 @@ Play() {
         i++
     }
     MsgBox %message%
-    Return
+    return
 
 ^!e::ExitApp
