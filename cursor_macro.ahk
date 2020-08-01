@@ -28,8 +28,8 @@ moves := []
 recording := false
 playing := false
 toBreak := false
-resend_clicks := true
-simple_hotkeys := true
+resendClicks := true
+simpleHotkeysEnabled := true
 
 MOVE := 0
 WAIT := 1
@@ -40,23 +40,23 @@ MIDDLE_CLICK := 4
 ^!s::toBreak := true
 
 ^!k::
-    if simple_hotkeys {
-        simple_hotkeys := false
+    if simpleHotkeysEnabled {
+        simpleHotkeysEnabled := false
     } else {
-        simple_hotkeys := true
+        simpleHotkeysEnabled := true
     }
     Return
 
 ^!c::
-    if resend_clicks {
-        resend_clicks := false
+    if resendClicks {
+        resendClicks := false
     } else {
-        resend_clicks := true
+        resendClicks := true
     }
     Return
 
 ~m::
-    if (recording AND simple_hotkeys) {
+    if (recording AND simpleHotkeysEnabled) {
         MouseGetPos, xpos, ypos
         moves.Push(MOVE, xpos, ypos)
     }
@@ -83,161 +83,137 @@ AppendAction(Type, Amount) {
 }
 
 $RButton::
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {RButton Down}
     }
     Return
 
 $RButton UP::
     AppendAction(RIGHT_CLICK, 1)
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {RButton Up}
     }
     Return
 
 $^RButton::
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {Ctrl}{RButton Down}
     }
     Return
 
 $^RButton UP::
     AppendAction(RIGHT_CLICK, 10)
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {Ctrl}{RButton Up}
     }
     Return
 
 $^+RButton::
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {Ctrl}{Shift}{RButton Down}
     }
     Return
 
 $^+RButton UP::
     AppendAction(RIGHT_CLICK, 100)
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {Ctrl}{Shift}{RButton Up}
     }
     Return
 
 $LButton::
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {LButton Down}
     }
     Return
 
 $LButton UP::
     AppendAction(LEFT_CLICK, 1)
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {LButton Up}
     }
     Return
 
 $^LButton::
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {Ctrl}{LButton Down}
     }
     Return
 
 $^LButton UP::
     AppendAction(LEFT_CLICK, 10)
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {Ctrl}{LButton Up}
     }
     Return
 
 $^+LButton::
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {Ctrl}{Shift}{LButton Down}
     }
     Return
 
 $^+LButton UP::
     AppendAction(LEFT_CLICK, 100)
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {Ctrl}{Shift}{LButton Up}
     }
     Return
 
 $MButton::
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {MButton Down}
     }
     Return
 
 $MButton UP::
     AppendAction(MIDDLE_CLICK, 1)
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {MButton Up}
     }
     Return
 
 $^MButton::
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {Ctrl}{MButton Down}
     }
     Return
 
 $^MButton UP::
     AppendAction(MIDDLE_CLICK, 10)
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {Ctrl}{MButton Up}
     }
     Return
 
 $^+MButton::
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {Ctrl}{Shift}{MButton Down}
     }
     Return
 
 $^+MButton UP::
     AppendAction(MIDDLE_CLICK, 100)
-    if (resend_clicks OR NOT recording) {
+    if (resendClicks OR NOT recording) {
         Send {Ctrl}{Shift}{MButton Up}
     }
     Return
 
 ~w::
-    if (recording AND simple_hotkeys) {
-        if (moves.Length() >= 3 AND moves[moves.Length() - 2] = WAIT) {
-            moves[moves.Length() - 1] += 1000
-        } else {
-            moves.Push(WAIT, 1000, 0)
-        }
+    if simpleHotkeysEnabled {
+        AppendAction(WAIT, 1000)
     }
     Return
 
 ~+w::
-    if (recording AND simple_hotkeys) {
-        if (moves.Length() >= 3 AND moves[moves.Length() - 2] = WAIT) {
-            moves[moves.Length() - 1] += 10000
-        } else {
-            moves.Push(WAIT, 10000, 0)
-        }
+    if simpleHotkeysEnabled {
+        AppendAction(WAIT, 10000)
     }
     Return
 
-^!w::
-    if recording {
-        if (moves.Length() >= 3 AND moves[moves.Length() - 2] = WAIT) {
-            moves[moves.Length() - 1] += 1000
-        } else {
-            moves.Push(WAIT, 1000, 0)
-        }
-    }
-    Return
+^!w::AppendAction(WAIT, 1000)
 
-^!+w::
-    if recording {
-        if (moves.Length() >= 3 AND moves[moves.Length() - 2] = WAIT) {
-            moves[moves.Length() - 1] += 10000
-        } else {
-            moves.Push(WAIT, 10000, 0)
-        }
-    }
-    Return
+^!+w::AppendAction(WAIT, 10000)
 
 ^!u::
     if (recording AND moves.Length() >= 3) {
@@ -295,9 +271,10 @@ Play() {
     global moves
     global toBreak
     global MOVE
+    global WAIT
     global RIGHT_CLICK
     global LEFT_CLICK
-    global WAIT
+    global MIDDLE_CLICK
     
     i := 1
     While (i <= moves.Length()) {
