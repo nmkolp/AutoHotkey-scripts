@@ -7,7 +7,7 @@ global stopSleep := false
 
 SleepSeconds(seconds) {
     stopSleep := false
-    Loop %seconds% {
+    loop %seconds% {
         if stopSleep {
             break
         }
