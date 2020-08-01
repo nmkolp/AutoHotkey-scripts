@@ -16,7 +16,7 @@
 ;     First and last actions are excluded
 ; Ctrl + Alt + c: toggles mouse clicks block during recording, if enabled then clicks will be recorded but won't be executed
 ; Ctrl + Alt + k: toggles single key hotkeys (m / w / Shift + w)
-;     The keys used in these hotkeys are never blocked regardles of the status of this toggle, only recording is affected
+;     The keys used in these hotkeys are never blocked regardless of the status of this toggle, only recording is affected
 ; Ctrl + Alt + d: displays recorded actions
 ; Ctrl + Alt + e: closes the script
 
