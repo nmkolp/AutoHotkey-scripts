@@ -13,56 +13,56 @@ holdEnabled := true
 looping := false
 
 LButton::
-  if (looping) {
-    Return
-  }
-  looping := true
-  Loop {
-    Click
-    Sleep 20
-    if (A_IsSuspended or holdEnabled and not GetKeyState("LButton", "P")) {
-      looping := false
-      Break
+    if (looping) {
+        Return
     }
-  }
-  Return
+    looping := true
+    Loop {
+        Click
+        Sleep 20
+        if (A_IsSuspended or holdEnabled and not GetKeyState("LButton", "P")) {
+            looping := false
+            Break
+        }
+    }
+    Return
 
 RButton::
-  if (looping) {
-    Return
-  }
-  looping := true
-  Loop {
-    Click, Right
-    Sleep 20
-    if (A_IsSuspended or holdEnabled and not GetKeyState("RButton", "P")) {
-      looping := false
-      Break
+    if (looping) {
+        Return
     }
-  }
-  Return
+    looping := true
+    Loop {
+        Click, Right
+        Sleep 20
+        if (A_IsSuspended or holdEnabled and not GetKeyState("RButton", "P")) {
+            looping := false
+            Break
+        }
+    }
+    Return
 
 MButton::
-  if (looping) {
-    Return
-  }
-  looping := true
-  Loop {
-    Click, Middle
-    Sleep 20
-    if (A_IsSuspended or holdEnabled and not GetKeyState("MButton", "P")) {
-      looping := false
-      Break
+    if (looping) {
+        Return
     }
-  }
-  Return
+    looping := true
+    Loop {
+        Click, Middle
+        Sleep 20
+        if (A_IsSuspended or holdEnabled and not GetKeyState("MButton", "P")) {
+            looping := false
+            Break
+        }
+    }
+    Return
 
 ^`::Suspend
 
 ^!h::
-  if (holdEnabled) {
-    holdEnabled := false
-  } else {
-    holdEnabled := true
-  }
-  Return
+    if (holdEnabled) {
+        holdEnabled := false
+    } else {
+        holdEnabled := true
+    }
+    Return
