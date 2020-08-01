@@ -278,7 +278,7 @@ Play() {
     
     i := 1
     While (i <= moves.Length()) {
-        if toBreak {
+        if (toBreak) {
             Break
         }
         if (moves[i] = MOVE) {
@@ -287,7 +287,7 @@ Play() {
         } else if (moves[i] = RIGHT_CLICK) {
             count := moves[++i]
             Loop %count% {
-                if toBreak {
+                if (toBreak) {
                     Break
                 }
                 Click, Right
@@ -297,7 +297,7 @@ Play() {
         } else if (moves[i] = LEFT_CLICK) {
             count := moves[++i]
             Loop %count% {
-                if toBreak {
+                if (toBreak) {
                     Break
                 }
                 Click
@@ -307,7 +307,7 @@ Play() {
         } else if (moves[i] = MIDDLE_CLICK) {
             count := moves[++i]
             Loop %count% {
-                if toBreak {
+                if (toBreak) {
                     Break
                 }
                 Click, Middle
@@ -317,7 +317,7 @@ Play() {
         } else if (moves[i] = WAIT) {
             seconds := moves[++i]
             Loop %seconds% {
-                if toBreak {
+                if (toBreak) {
                     Break
                 }
                 Sleep 1000
@@ -348,7 +348,7 @@ Play() {
     toBreak := false
     Loop {
         Play()
-        if toBreak {
+        if (toBreak) {
             Break
         }
     }
