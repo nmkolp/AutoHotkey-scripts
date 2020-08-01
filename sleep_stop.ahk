@@ -1,13 +1,13 @@
-﻿; Ctrl + Alt + n stops sleep
+﻿; Ctrl + Alt + n: stops sleep
 
 #NoEnv
 SendMode Input
 
-SleepS(seconds){
-    global StopSleep = 0
-    Loop %seconds% {
+SleepS(seconds) {
+    global StopSleep := false
+    Loop, %seconds% {
         if StopSleep {
-            break
+            Break
         }
         Sleep, 1000
     }
@@ -16,4 +16,4 @@ SleepS(seconds){
 SleepS(60)
 ; some code after sleep
 
-^!n::StopSleep = 1
+^!n::StopSleep = true
