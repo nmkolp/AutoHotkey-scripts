@@ -1,6 +1,6 @@
 ; Hides specified window
-; Ctrl + Alt + s toggles window hide/show
-; Ctrl + Alt + e exits script
+; Ctrl + Alt + s: toggles window hide/show
+; Ctrl + Alt + e: exits script
 
 #NoEnv
 SendMode Input
@@ -19,6 +19,6 @@ ExitF() {
     } else {
         WinShow, ahk_exe example.exe
     }
-    Return
+    return
 
 ^!e::ExitApp
