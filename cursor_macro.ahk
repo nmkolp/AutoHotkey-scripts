@@ -237,7 +237,7 @@ $^+MButton UP::
 ^!b::
     if (recording) {
         i := moves.Length() - 3
-        While (i > 3) {
+        while (i > 3) {
             moves.Push(moves[i - 2], moves[i - 1], moves[i])
             i -= 3
         }
@@ -248,7 +248,7 @@ $^+MButton UP::
     if (recording) {
         swap := false
         i := moves.Length() - 3
-        While (i > 3) {
+        while (i > 3) {
             if (moves[i - 2] > WAIT AND moves[i - 5] = MOVE) {
                 swap := true
                 i -= 3
@@ -266,7 +266,7 @@ $^+MButton UP::
 
 Play() {
     i := 1
-    While (i <= moves.Length()) {
+    while (i <= moves.Length()) {
         if (toBreak) {
             break
         }
@@ -275,7 +275,7 @@ Play() {
             Sleep 50
         } else if (moves[i] = RIGHT_CLICK) {
             count := moves[++i]
-            Loop %count% {
+            loop %count% {
                 if (toBreak) {
                     break
                 }
@@ -285,7 +285,7 @@ Play() {
             i++
         } else if (moves[i] = LEFT_CLICK) {
             count := moves[++i]
-            Loop %count% {
+            loop %count% {
                 if (toBreak) {
                     break
                 }
@@ -295,7 +295,7 @@ Play() {
             i++
         } else if (moves[i] = MIDDLE_CLICK) {
             count := moves[++i]
-            Loop %count% {
+            loop %count% {
                 if (toBreak) {
                     break
                 }
@@ -305,7 +305,7 @@ Play() {
             i++
         } else if (moves[i] = WAIT) {
             seconds := moves[++i]
-            Loop %seconds% {
+            loop %seconds% {
                 if (toBreak) {
                     break
                 }
@@ -335,7 +335,7 @@ Play() {
     recording := false
     playing := true
     toBreak := false
-    Loop {
+    loop {
         Play()
         if (toBreak) {
             break
@@ -350,7 +350,7 @@ Play() {
     }
     message := ""
     i := 1
-    While (i <= moves.Length()) {
+    while (i <= moves.Length()) {
         if (moves[i] = MOVE) {
             message .= (i // 3 + 1) . " MOVE x" . moves[++i] . " y" . moves[++i] . "`t"
         } else if (moves[i] = RIGHT_CLICK) {
