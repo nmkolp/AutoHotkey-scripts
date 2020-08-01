@@ -1,13 +1,12 @@
 ﻿; Opens specified page in Firefox and saves it
-; Ctrl + Alt + e exits script
+; Ctrl + Alt + e: exits script
 
 #NoEnv
 SendMode Input
 
 global inputWaitTime := 500
 
-Save(link, filepath)
-{
+Save(link, filepath) {
     Send {F6}
     Sleep %inputWaitTime%
     SendInput %link%
