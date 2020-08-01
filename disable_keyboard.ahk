@@ -4,7 +4,7 @@
 #NoEnv
 SendMode Input
 
-Suspend, on
+Suspend, On
 
 Nop() {
     Return
@@ -13,7 +13,7 @@ Nop() {
 w := "*"
 
 Loop, 511 {
-    If (A_Index == 0x000 ; MouseKeys
+    if (A_Index == 0x000 ; MouseKeys
         OR A_Index == 0x01D OR A_Index == 0x11D ; LControl, RControl
         OR A_Index == 0x146 OR A_Index == 0x045) { ; CtrlBreak, Pause
         Continue
