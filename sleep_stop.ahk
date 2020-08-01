@@ -3,13 +3,15 @@
 #NoEnv
 SendMode Input
 
+global stopSleep := false
+
 SleepSeconds(seconds) {
-    global stopSleep := false
-    Loop, %seconds% {
+    stopSleep := false
+    Loop %seconds% {
         if stopSleep {
-            Break
+            break
         }
-        Sleep, 1000
+        Sleep 1000
     }
 }
 
