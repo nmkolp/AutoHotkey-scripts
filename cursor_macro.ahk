@@ -12,7 +12,7 @@
 ; Ctrl + Alt + u: deletes last recorded action
 ; Ctrl + Alt + Shift + u: deletes all recorded actions
 ; Ctrl + Alt + b: appends all recorded actions in reverse order, excluding first and last actions
-; Ctrl + Alt + Shift + b: appends all recorded actions in reverse order, but keeps the order of mouse clicks immediately after mouse move
+; Ctrl + Alt + Shift + b: appends all recorded actions in reverse order, but keeps the order of mouse clicks that directly follow a cursor move
 ;     First and last actions are excluded
 ; Ctrl + Alt + c: toggles mouse clicks block during recording, if enabled then clicks will be recorded but won't be executed
 ; Ctrl + Alt + k: toggles single key hotkeys (m / w / Shift + w)
