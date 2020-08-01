@@ -14,7 +14,7 @@ looping := false
 
 LButton::
     if (looping) {
-        Return
+        return
     }
     looping := true
     Loop {
@@ -22,14 +22,14 @@ LButton::
         Sleep 20
         if (A_IsSuspended OR holdEnabled AND NOT GetKeyState("LButton", "P")) {
             looping := false
-            Break
+            break
         }
     }
-    Return
+    return
 
 RButton::
     if (looping) {
-        Return
+        return
     }
     looping := true
     Loop {
@@ -37,14 +37,14 @@ RButton::
         Sleep 20
         if (A_IsSuspended OR holdEnabled AND NOT GetKeyState("RButton", "P")) {
             looping := false
-            Break
+            break
         }
     }
-    Return
+    return
 
 MButton::
     if (looping) {
-        Return
+        return
     }
     looping := true
     Loop {
@@ -52,10 +52,10 @@ MButton::
         Sleep 20
         if (A_IsSuspended OR holdEnabled AND NOT GetKeyState("MButton", "P")) {
             looping := false
-            Break
+            break
         }
     }
-    Return
+    return
 
 ^`::Suspend
 
@@ -65,4 +65,4 @@ MButton::
     } else {
         holdEnabled := true
     }
-    Return
+    return
