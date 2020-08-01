@@ -6,7 +6,7 @@
 ; Mouse Click: records each click, position is not recorded
 ; Ctrl + Mouse Click: records 10 clicks, position is not recorded
 ; Ctrl + Shift + Mouse Click: records 100 clicks, position is not recorded
-; m / Ctrl + Alt + m: records current mouse position
+; m / Ctrl + Alt + m: records current cursor position
 ; w / Ctrl + Alt + w: records waiting for 1 second
 ; Shift + w / Ctrl + Alt + Shift + w: records waiting for 10 seconds
 ; Ctrl + Alt + u: deletes last recorded action
@@ -16,7 +16,7 @@
 ;     First and last actions are excluded
 ; Ctrl + Alt + c: toggles mouse clicks block during recording, if enabled then clicks will be recorded but won't be executed
 ; Ctrl + Alt + k: toggles single key hotkeys (m / w / Shift + w)
-;     The keys used in these hotkeys are never blocked regardless of the status of this toggle, only recording is affected
+;     The keys used in these hotkeys are never blocked regardless of the state of this parameter, only recording is affected
 ; Ctrl + Alt + d: displays recorded actions
 ; Ctrl + Alt + e: closes the script
 
