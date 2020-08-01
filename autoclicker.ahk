@@ -7,7 +7,7 @@
 #NoEnv
 SendMode Input
 
-Suspend, on
+Suspend, On
 
 holdEnabled := true
 looping := false
@@ -20,7 +20,7 @@ LButton::
     Loop {
         Click
         Sleep 20
-        if (A_IsSuspended or holdEnabled and not GetKeyState("LButton", "P")) {
+        if (A_IsSuspended OR holdEnabled AND NOT GetKeyState("LButton", "P")) {
             looping := false
             Break
         }
@@ -35,7 +35,7 @@ RButton::
     Loop {
         Click, Right
         Sleep 20
-        if (A_IsSuspended or holdEnabled and not GetKeyState("RButton", "P")) {
+        if (A_IsSuspended OR holdEnabled AND NOT GetKeyState("RButton", "P")) {
             looping := false
             Break
         }
@@ -50,7 +50,7 @@ MButton::
     Loop {
         Click, Middle
         Sleep 20
-        if (A_IsSuspended or holdEnabled and not GetKeyState("MButton", "P")) {
+        if (A_IsSuspended OR holdEnabled AnD NOT GetKeyState("MButton", "P")) {
             looping := false
             Break
         }
