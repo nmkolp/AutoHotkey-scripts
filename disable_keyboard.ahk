@@ -12,7 +12,7 @@ Nop() {
 
 w := "*"
 
-Loop, 511 {
+Loop 511 {
     if (A_Index == 0x000 ; MouseKeys
         OR A_Index == 0x01D OR A_Index == 0x11D ; LControl, RControl
         OR A_Index == 0x146 OR A_Index == 0x045) { ; CtrlBreak, Pause
