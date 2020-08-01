@@ -17,7 +17,7 @@ LButton::
         return
     }
     looping := true
-    Loop {
+    loop {
         Click
         Sleep 20
         if (A_IsSuspended OR holdEnabled AND NOT GetKeyState("LButton", "P")) {
@@ -32,7 +32,7 @@ RButton::
         return
     }
     looping := true
-    Loop {
+    loop {
         Click, Right
         Sleep 20
         if (A_IsSuspended OR holdEnabled AND NOT GetKeyState("RButton", "P")) {
@@ -47,7 +47,7 @@ MButton::
         return
     }
     looping := true
-    Loop {
+    loop {
         Click, Middle
         Sleep 20
         if (A_IsSuspended OR holdEnabled AND NOT GetKeyState("MButton", "P")) {
