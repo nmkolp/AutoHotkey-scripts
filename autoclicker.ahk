@@ -50,7 +50,7 @@ MButton::
     Loop {
         Click, Middle
         Sleep 20
-        if (A_IsSuspended OR holdEnabled AnD NOT GetKeyState("MButton", "P")) {
+        if (A_IsSuspended OR holdEnabled AND NOT GetKeyState("MButton", "P")) {
             looping := false
             Break
         }
