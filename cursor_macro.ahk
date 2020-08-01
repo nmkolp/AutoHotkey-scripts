@@ -201,19 +201,19 @@ $^+MButton UP::
 
 ~w::
     if simpleHotkeysEnabled {
-        AppendAction(WAIT, 1000)
+        AppendAction(WAIT, 1)
     }
     Return
 
 ~+w::
     if simpleHotkeysEnabled {
-        AppendAction(WAIT, 10000)
+        AppendAction(WAIT, 10)
     }
     Return
 
-^!w::AppendAction(WAIT, 1000)
+^!w::AppendAction(WAIT, 1)
 
-^!+w::AppendAction(WAIT, 10000)
+^!+w::AppendAction(WAIT, 10)
 
 ^!u::
     if (recording AND moves.Length() >= 3) {
@@ -315,7 +315,13 @@ Play() {
             }
             i++
         } else if (moves[i] = WAIT) {
-            Sleep, moves[++i]
+            seconds := moves[++i]
+            Loop, %seconds% {
+                if toBreak {
+                    Break
+                }
+                Sleep, 1000
+            }
             i++
         }
         i++
@@ -368,7 +374,7 @@ Play() {
             message .= (i // 3 + 1) . " MIDDLE CLICK x" . moves[++i] . "`t"
             i++
         } else if (moves[i] = WAIT) {
-            message .= (i // 3 + 1) . " WAIT " . (moves[++i] // 1000) . " sec" . "`t"
+            message .= (i // 3 + 1) . " WAIT " . moves[++i] . " sec" . "`t"
             i++
         }
         i++
