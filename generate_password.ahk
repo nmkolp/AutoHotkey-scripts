@@ -15,7 +15,7 @@ CryptGenRandom(min := -2147483648, max := 2147483647, len := 4) {
 
 GeneratePassword(length) {
     pass := ""
-    Loop %length% {
+    loop %length% {
         pass .= Chr(CryptGenRandom(0x21, 0x7E))
     }
     return pass
