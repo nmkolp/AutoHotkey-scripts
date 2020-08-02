@@ -3,19 +3,18 @@
 ; Ctrl + Alt + p: plays macro once
 ; Ctrl + Alt + Shift + p: plays and loops macro
 ; Ctrl + Alt + s: stops macro replay
+; Alt + Left Mouse Click: records current cursor position
 ; Mouse Click: records each click, position is not recorded
 ; Ctrl + Mouse Click: records 10 clicks, position is not recorded
 ; Ctrl + Shift + Mouse Click: records 100 clicks, position is not recorded
-; m / Ctrl + Alt + m: records current cursor position
-; w / Ctrl + Alt + w: records a pause for 1 second
-; Shift + w / Ctrl + Alt + Shift + w: records a pause for 10 seconds
+; Ctrl + Alt + w or just w: records a pause for 1 second; w hotkey is disabled by default, w hotkey is never blocked
+; Ctrl + Alt + Shift + w or just Shift + w: records a pause for 10 seconds; Shift + w hotkey is disabled by default, Shift + w hotkey never blocked
+; Ctrl + Alt + k: toggles w and Shift + w hotkeys; if disabled, then a pause won't be recorded when w or Shift + w hotkey is pressed
 ; Ctrl + Alt + u: deletes last recorded action
 ; Ctrl + Alt + Shift + u: deletes all recorded actions
 ; Ctrl + Alt + b: appends all recorded actions in reverse order, excluding first and last actions
 ; Ctrl + Alt + Shift + b: appends all recorded actions in reverse order, but keeps the order of the mouse clicks that directly follow a cursor move; first and last actions are excluded
 ; Ctrl + Alt + c: toggles mouse clicks block during recording; if enabled, then clicks will be recorded but won't be executed
-; Ctrl + Alt + k: toggles single key hotkeys (m / w / Shift + w); if disabled, then no actions will be recorded when these hotkeys are pressed
-;     The keys used in these hotkeys are never blocked regardless of the state of this parameter, only recording is affected
 ; Ctrl + Alt + d: displays recorded actions
 ; Ctrl + Alt + e: closes the script
 
@@ -29,7 +28,7 @@ global recording := false
 global playing := false
 global toBreak := false
 global resendClicks := true
-global simpleHotkeysEnabled := true
+global simpleHotkeysEnabled := false
 
 global MOVE := 0
 global WAIT := 1
@@ -55,17 +54,19 @@ global MIDDLE_CLICK := 4
     }
     return
 
-~m::
-    if (recording AND simpleHotkeysEnabled) {
-        MouseGetPos, xpos, ypos
-        moves.Push(MOVE, xpos, ypos)
+$!LButton::
+    if (resendClicks OR NOT recording) {
+        Send {Alt}{LButton Down}
     }
     return
 
-^!m::
+$!LButton UP::
     if (recording) {
         MouseGetPos, xpos, ypos
         moves.Push(MOVE, xpos, ypos)
+    }
+    if (resendClicks OR NOT recording) {
+        Send {Alt}{LButton Up}
     }
     return
 
